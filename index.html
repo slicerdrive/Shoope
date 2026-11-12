@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading</title>
+<meta name="referrer" content="no-referrer">
+<title></title>
 
 <style>
 *{
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 html,body{
@@ -18,52 +17,15 @@ html,body{
     height:100%;
     background:#000;
 }
-
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Arial,sans-serif;
-    cursor:pointer;
-}
-
-.container{
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#fff;
-    font-size:14px;
-}
 </style>
 
-</head>
-
-<body onclick="goShopee()">
-
-<div class="container">
-    Loading...
-</div>
-
 <script>
-
-const SHOPEE_LINK =
-"https://s.shopee.co.id/7AeWeeLqUU";
-
-let redirected = false;
-
-function goShopee(){
-
-    if(redirected) return;
-
-    redirected = true;
-
-    window.location.href = SHOPEE_LINK;
-
-}
-
+window.location.replace(
+    "https://s.shopee.co.id/7AeWeeLqUU"
+);
 </script>
 
+</head>
+<body>
 </body>
 </html>

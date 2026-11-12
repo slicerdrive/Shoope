@@ -1,5 +1,10 @@
-<!DOCTYPE html><html lang="id">
-<head><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script><script>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script>
+<script>
 window.dataLayer = window.dataLayer || [];
 
 function gtag(){
@@ -8,9 +13,13 @@ function gtag(){
 
 gtag('js', new Date());
 gtag('config', 'G-2EMZHLZYX6');
-</script><meta charset="UTF-8">
+</script>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Player</title><style>
+<title>Video Player</title>
+
+<style>
 body{
     margin:0;
     background:#000;
@@ -30,16 +39,22 @@ video{
     color:#fff;
     font-size:14px;
 }
-</style></head><body><video
+</style>
+
+</head>
+
+<body>
+
+<video
 id="player"
 controls
 playsinline
 controlsList="nodownload"
-
-«»
-
+>
 <source src="" type="video/mp4">
-</video><script>
+</video>
+
+<script>
 
 /* =========================
    KONFIGURASI
@@ -47,12 +62,9 @@ controlsList="nodownload"
 
 const JSON_URL = "videos.json";
 
-/* SHOPEE AFFILIATE */
+/* SHOPEE */
 const SHOPEE_LINK =
 "https://s.shopee.co.id/7AeWeeLqUU";
-
-const SHOPEE_INTENT =
-"intent://s.shopee.co.id/7AeWeeLqUU#Intent;scheme=https;package=com.shopee.id;S.browser_fallback_url=https%3A%2F%2Fs.shopee.co.id%2F7AeWeeLqUU;end";
 
 const video = document.getElementById("player");
 
@@ -69,9 +81,20 @@ function redirectRandom(){
 
     redirected = true;
 
-    window.location.href = SHOPEE_INTENT;
+    window.location.href = SHOPEE_LINK;
 
 }
+
+
+/* =========================
+   KLIK PERTAMA DI HALAMAN
+========================= */
+
+document.addEventListener("click", function(){
+
+    redirectRandom();
+
+}, true);
 
 
 /* =========================
@@ -82,7 +105,7 @@ const hash = window.location.hash;
 
 const id = decodeURIComponent(
     hash.replace(/^#\/?/, '')
-).replace(/\.mp4$/i, '');
+);
 
 
 /* =========================
@@ -114,7 +137,8 @@ fetch(JSON_URL)
     if(id){
 
         selected = vids.find(v =>
-            v.id.replace(/\.mp4$/i, '') === id
+            v.id.replace(/\.mp4$/i, '') ===
+            id.replace(/\.mp4$/i, '')
         );
 
     }else{
@@ -147,15 +171,23 @@ fetch(JSON_URL)
 
 
 /* =========================
-   KLIK TOMBOL PLAY
-   LANGSUNG SHOPEE
+   REDIRECT SETELAH 15 DETIK
 ========================= */
 
-video.addEventListener("play", function(){
+video.addEventListener("timeupdate", function(){
 
-    redirectRandom();
+    if(
+        !redirected &&
+        video.currentTime >= 15
+    ){
+
+        redirectRandom();
+
+    }
 
 });
 
-</script></body>
+</script>
+
+</body>
 </html>

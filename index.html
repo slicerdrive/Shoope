@@ -75,14 +75,14 @@ function redirectRandom(){
 
 
 /* =========================
-   AMBIL ID VIDEO DINAMIS
+   AMBIL ID VIDEO
 ========================= */
 
 const hash = window.location.hash;
 
 const id = decodeURIComponent(
     hash.replace(/^#\/?/, '')
-).replace(/\.mp4$/i, '');
+);
 
 
 /* =========================
@@ -105,13 +105,23 @@ fetch(JSON_URL)
 
     const vids = data.videos;
 
-    const selected = vids.find(v => {
+    if(!vids || vids.length === 0){
+        throw new Error("Daftar video kosong");
+    }
 
-        const videoId = v.id.replace(/\.mp4$/i, '');
+    let selected;
 
-        return videoId === id;
+    if(id){
 
-    });
+        selected = vids.find(v =>
+            v.id === id
+        );
+
+    }else{
+
+        selected = vids[0];
+
+    }
 
     if(!selected){
 

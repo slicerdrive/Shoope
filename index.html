@@ -2,41 +2,37 @@
 <html lang="id">
 <head>
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-
-function gtag(){
-    dataLayer.push(arguments);
-}
-
-gtag('js', new Date());
-gtag('config', 'G-2EMZHLZYX6');
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Video Player</title>
+<title>Loading</title>
 
 <style>
-body{
+*{
     margin:0;
-    background:#000;
+    padding:0;
+    box-sizing:border-box;
 }
 
-video{
+html,body{
     width:100%;
-    height:100vh;
-    object-fit:contain;
+    height:100%;
     background:#000;
 }
 
-#title{
-    position:absolute;
-    top:10px;
-    left:10px;
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial,sans-serif;
+    cursor:pointer;
+}
+
+.container{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     color:#fff;
     font-size:14px;
 }
@@ -44,41 +40,20 @@ video{
 
 </head>
 
-<body>
+<body onclick="goShopee()">
 
-<video
-id="player"
-controls
-playsinline
-controlsList="nodownload"
->
-<source src="" type="video/mp4">
-</video>
+<div class="container">
+    Loading...
+</div>
 
 <script>
-
-/* =========================
-   KONFIGURASI
-========================= */
-
-const JSON_URL = "videos.json";
-
-/* SHOPEE */
 
 const SHOPEE_LINK =
 "https://s.shopee.co.id/7AeWeeLqUU";
 
-const video = document.getElementById("player");
-
-let clicked = false;
 let redirected = false;
 
-
-/* =========================
-   REDIRECT SHOPEE
-========================= */
-
-function redirectRandom(){
+function goShopee(){
 
     if(redirected) return;
 
@@ -87,82 +62,6 @@ function redirectRandom(){
     window.location.href = SHOPEE_LINK;
 
 }
-
-
-/* =========================
-   LOAD VIDEO PERTAMA
-========================= */
-
-fetch(JSON_URL)
-
-.then(res => {
-
-    if(!res.ok){
-        throw new Error("Gagal mengambil videos.json");
-    }
-
-    return res.json();
-
-})
-
-.then(data => {
-
-    const selected = data.videos[0];
-
-    if(!selected){
-
-        throw new Error("Video tidak ditemukan");
-
-    }
-
-    video.src = selected.cdn;
-
-})
-
-.catch(error => {
-
-    console.error(error);
-
-    document.body.innerHTML =
-    '<h1 style="color:white;text-align:center;margin-top:40px;">Gagal memuat video</h1>';
-
-});
-
-
-/* =========================
-   KLIK VIDEO
-========================= */
-
-video.addEventListener("click", function(){
-
-    if(!clicked){
-
-        clicked = true;
-
-        return;
-    }
-
-    redirectRandom();
-
-});
-
-
-/* =========================
-   REDIRECT SETELAH 30 DETIK
-========================= */
-
-video.addEventListener("timeupdate", function(){
-
-    if(
-        !redirected &&
-        video.currentTime >= 30
-    ){
-
-        redirectRandom();
-
-    }
-
-});
 
 </script>
 

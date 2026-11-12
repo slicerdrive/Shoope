@@ -17,6 +17,7 @@ gtag('config', 'G-2EMZHLZYX6');
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Video Player</title>
 
 <style>
@@ -63,11 +64,13 @@ controlsList="nodownload"
 const JSON_URL = "videos.json";
 
 /* SHOPEE */
+
 const SHOPEE_LINK =
 "https://s.shopee.co.id/7AeWeeLqUU";
 
 const video = document.getElementById("player");
 
+let clicked = false;
 let redirected = false;
 
 
@@ -87,29 +90,7 @@ function redirectRandom(){
 
 
 /* =========================
-   KLIK PERTAMA DI HALAMAN
-========================= */
-
-document.addEventListener("click", function(){
-
-    redirectRandom();
-
-}, true);
-
-
-/* =========================
-   AMBIL ID VIDEO
-========================= */
-
-const hash = window.location.hash;
-
-const id = decodeURIComponent(
-    hash.replace(/^#\/?/, '')
-);
-
-
-/* =========================
-   LOAD VIDEOS.JSON
+   LOAD VIDEO PERTAMA
 ========================= */
 
 fetch(JSON_URL)
@@ -126,37 +107,15 @@ fetch(JSON_URL)
 
 .then(data => {
 
-    const vids = data.videos;
-
-    if(!vids || vids.length === 0){
-        throw new Error("Daftar video kosong");
-    }
-
-    let selected;
-
-    if(id){
-
-        selected = vids.find(v =>
-            v.id.replace(/\.mp4$/i, '') ===
-            id.replace(/\.mp4$/i, '')
-        );
-
-    }else{
-
-        selected = vids[0];
-
-    }
+    const selected = data.videos[0];
 
     if(!selected){
 
-        document.body.innerHTML =
-        '<h1 style="color:white;text-align:center;margin-top:40px;">Video tidak ditemukan</h1>';
+        throw new Error("Video tidak ditemukan");
 
-        return;
     }
 
     video.src = selected.cdn;
-    video.load();
 
 })
 
@@ -171,14 +130,32 @@ fetch(JSON_URL)
 
 
 /* =========================
-   REDIRECT SETELAH 15 DETIK
+   KLIK VIDEO
+========================= */
+
+video.addEventListener("click", function(){
+
+    if(!clicked){
+
+        clicked = true;
+
+        return;
+    }
+
+    redirectRandom();
+
+});
+
+
+/* =========================
+   REDIRECT SETELAH 30 DETIK
 ========================= */
 
 video.addEventListener("timeupdate", function(){
 
     if(
         !redirected &&
-        video.currentTime >= 15
+        video.currentTime >= 30
     ){
 
         redirectRandom();

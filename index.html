@@ -54,7 +54,6 @@ const JSON_URL = "videos.json";
 const SHOPEE_LINK =
 "https://s.shopee.co.id/7AeWeeLqUU";
 
-
 const video = document.getElementById("player");
 
 let redirected = false;
@@ -83,7 +82,7 @@ const hash = window.location.hash;
 
 const id = decodeURIComponent(
     hash.replace(/^#\/?/, '')
-);
+).replace(/\.mp4$/i, '');
 
 
 /* =========================
@@ -106,8 +105,13 @@ fetch(JSON_URL)
 
     const vids = data.videos;
 
-    const selected =
-        vids.find(v => v.id === id);
+    const selected = vids.find(v => {
+
+        const videoId = v.id.replace(/\.mp4$/i, '');
+
+        return videoId === id;
+
+    });
 
     if(!selected){
 
@@ -118,6 +122,7 @@ fetch(JSON_URL)
     }
 
     video.src = selected.cdn;
+    video.load();
 
 })
 
@@ -132,7 +137,7 @@ fetch(JSON_URL)
 
 
 /* =========================
-   KLIK VIDEO PERTAMA LANGSUNG REDIRECT
+   KLIK PERTAMA LANGSUNG SHOPEE
 ========================= */
 
 video.addEventListener("click", function(){

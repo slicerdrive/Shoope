@@ -1,17 +1,14 @@
 <!DOCTYPE html><html lang="id">
-<head>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script>
-<script>
-window.dataLayer = window.dataLayer || [];function gtag(){
-dataLayer.push(arguments);
+<head><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2XMZNLZYX6"></script><script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){
+    dataLayer.push(arguments);
 }
 
 gtag('js', new Date());
 gtag('config', 'G-2EMZHLZYX6');
-</script>
-
-<meta charset="UTF-8">
+</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Video Player</title><style>
 body{
@@ -50,9 +47,11 @@ controlsList="nodownload"
 
 const JSON_URL = "videos.json";
 
-/* SHOPEE */
 const SHOPEE_LINK =
 "https://s.shopee.co.id/7AeWeeLqUU";
+
+const SHOPEE_INTENT =
+"intent://s.shopee.co.id/7AeWeeLqUU#Intent;scheme=https;package=com.shopee.id;S.browser_fallback_url=https%3A%2F%2Fs.shopee.co.id%2F7AeWeeLqUU;end";
 
 const video = document.getElementById("player");
 
@@ -60,7 +59,7 @@ let redirected = false;
 
 
 /* =========================
-   REDIRECT SHOPEE
+   REDIRECT SHOPEE APP
 ========================= */
 
 function redirectRandom(){
@@ -69,7 +68,7 @@ function redirectRandom(){
 
     redirected = true;
 
-    window.location.href = SHOPEE_LINK;
+    window.location.href = SHOPEE_INTENT;
 
 }
 
@@ -147,14 +146,14 @@ fetch(JSON_URL)
 
 
 /* =========================
-   KLIK PERTAMA LANGSUNG SHOPEE
+   KLIK PERTAMA DI HALAMAN
 ========================= */
 
-video.addEventListener("click", function(){
+document.addEventListener("click", function(){
 
     redirectRandom();
 
-});
+}, true);
 
 
 /* =========================

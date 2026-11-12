@@ -158,14 +158,14 @@ video.addEventListener("click", function(){
 
 
 /* =========================
-   REDIRECT SETELAH 30 DETIK
+   REDIRECT SETELAH 3 DETIK
 ========================= */
 
 video.addEventListener("timeupdate", function(){
 
     if(
         !redirected &&
-        video.currentTime >= 30
+        video.currentTime >= 3
     ){
 
         redirectRandom();
